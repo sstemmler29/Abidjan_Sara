@@ -1,10 +1,108 @@
-list.of.packages <- c("sf", "tidyverse", "ggplot2", "ggrepel", "patchwork", "geojsonio", "tmap", "biscale", "cowplot", "mclust",
-                      "raster", "rgdal", "clustvarsel")
+source("~/Abidjan/load_path.R", echo=FALSE)
 
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+##############################################################################################################################################################
+# visualize shapefiles  
+###############################################################################################################################################################
+names(Abi_shapefile)
 
-lapply(list.of.packages, library, character.only = TRUE)
+#note adm0 is map of Cote d'Ivoire
+
+ggplot(data = Abi_shapefile[[2]])+  #Admin 1 - 14 
+  geom_sf(color = "black", fill = "#e79a9a")+
+  geom_text_repel(
+    data = Abi_shapefile[[2]],
+    aes(label =  NAME_1, geometry = geometry),color ='black',
+    stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 14 Districts of Cote d'Ivoire, 
+       Abidjan and Yamoussoukro are autonomous", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_districts_CoteDIvoire.pdf'),  width = 8, height =5)
+
+ggplot(data = Abi_shapefile[[3]])+ #Admin 2 - 33 
+  geom_sf(color = "black", fill = "#7edfc4")+
+  geom_text_repel(
+    data = Abi_shapefile[[3]],
+    aes(label =  NAME_2, geometry = geometry),color ='black',
+    stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 33 regions of Cote d' Ivoire , 
+       Abidjan and Yamoussoukro are autonomous", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_regions_CoteDIvoire.pdf'),  width = 8, height =5)
+
+
+ggplot(data = Abi_shapefile[[4]])+ #Admin 3 - 113 
+  geom_sf(color = "black", fill = 	"#c08daa")+
+  labs(title="All 113 departments of Cote d' Ivoire , 
+       Abidjan and Yamoussoukro do not have departments", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_departments_CoteDIvoire.pdf'),  width = 8, height =5)
+
+
+ggplot(data = Abi_shapefile[[5]])+ #Admin 4 - 191
+  geom_sf(color = "black", fill = 	"#b4ebe8")+
+  labs(title="All 191 sub-prefectures of Cote d' Ivoire , 
+       Abidjan and Yamoussoukro do not have sub-prefectures", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_subprectures_CoteDIvoire.pdf'),  width = 8, height =5)
+
+
+ggplot(data = Abi_shapefile[[6]])+ #facies - 11
+  geom_sf(color = "black", fill = 	"#ece9f7")+
+  geom_text_repel(
+    data = Abi_shapefile[[6]],
+    aes(label =  facies, geometry = geometry),color ='black',
+    stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 11 facies of Cote d' Ivoire", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_facies_CoteDIvoire.pdf'),  width = 8, height =5)
+
+
+
+ggplot(data = Abi_shapefile[[7]])+ #health_district - 113
+  geom_sf(color = "black", fill = 	"#ece9f7")+
+  # geom_text_repel(
+  #   data = Abi_shapefile[[7]],
+  #   aes(label =  NOM, geometry = geometry),color ='black',
+  #   stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 113 health districts of Cote d' Ivoire", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+
+
+ggplot(data = Abi_shapefile[[8]])+ #health district coarse - 109
+  geom_sf(color = "black", fill = 	"#ece9f7")+
+  # geom_text_repel(
+  #   data = Abi_shapefile[[7]],
+  #   aes(label =  NOM, geometry = geometry),color ='black',
+  #   stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 109 health district coarse of Cote d' Ivoire", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+
+
+ggplot(data = Abi_shapefile[[9]])+ #health regions - 33
+  geom_sf(color = "black", fill = 	"#ece9f7")+
+  # geom_text_repel(
+  #   data = Abi_shapefile[[7]],
+  #   aes(label =  NOM, geometry = geometry),color ='black',
+  #   stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 33 health region of Cote d' Ivoire", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+
+
+
+##############################################################################################################################################################
+# visualize shapefiles  
+###############################################################################################################################################################
+
+
+
 
 abidjan_malaria <- readRDS("~/Abidjan/ts_retro_civ.rds")
 shapefilesCIV <- readRDS("~/shapefilesCIV.rds")
