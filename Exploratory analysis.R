@@ -72,7 +72,7 @@ ggplot(data = Abi_shapefile[[7]])+ #health_district - 113
   labs(title="All 113 health districts of Cote d' Ivoire", 
        fill = "", x = NULL, y = NULL)+
   map_theme()
-
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_health_district113_CoteDIvoire.pdf'),  width = 8, height =5)
 
 ggplot(data = Abi_shapefile[[8]])+ #health district coarse - 109
   geom_sf(color = "black", fill = 	"#ece9f7")+
@@ -83,7 +83,7 @@ ggplot(data = Abi_shapefile[[8]])+ #health district coarse - 109
   labs(title="All 109 health district coarse of Cote d' Ivoire", 
        fill = "", x = NULL, y = NULL)+
   map_theme()
-
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_health_district109_CoteDIvoire.pdf'),  width = 8, height =5)
 
 ggplot(data = Abi_shapefile[[9]])+ #health regions - 33
   geom_sf(color = "black", fill = 	"#ece9f7")+
@@ -94,12 +94,51 @@ ggplot(data = Abi_shapefile[[9]])+ #health regions - 33
   labs(title="All 33 health region of Cote d' Ivoire", 
        fill = "", x = NULL, y = NULL)+
   map_theme()
-
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_health_regions33_CoteDIvoire.pdf'),  width = 8, height =5)
 
 
 ##############################################################################################################################################################
-# visualize shapefiles  
+# obtain health districts shapefiles for Abidjan 
 ###############################################################################################################################################################
+
+#get Abidjan health district from the first file  
+Abidjan = Abi_shapefile[[3]] %>% filter(NAME_1 == "Abidjan")
+df_abidjan = st_intersection(Abi_shapefile[[7]], Abidjan)
+ggplot(data = Abidjan)+
+  geom_sf(data = df_abidjan, color = "black", fill = 	"#ece9f7")+
+  geom_text_repel(
+    data = df_abidjan,
+    aes(label =   NOM, geometry = geometry),color ='black',
+    stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 15 health districts of Abidjan", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_health_districts15_Abidjan.pdf'),  width = 8, height =5)
+
+#get Abidjan health district from the second file 
+df_abidjan = st_intersection(Abi_shapefile[[8]], Abidjan)
+ggplot(data = Abidjan)+
+  geom_sf(data = df_abidjan, color = "black", fill = 	"#ece9f7")+
+  geom_text_repel(
+    data = df_abidjan,
+    aes(label =   NOM, geometry = geometry),color ='black',
+    stat = "sf_coordinates", min.segment.length = 0, size = 3.5, force = 1)+
+  labs(title="All 13 health districts of Abidjan", 
+       fill = "", x = NULL, y = NULL)+
+  map_theme()
+ggsave(paste0(plots, "/", 'Jan_18_2024', "/", Sys.Date(), '_health_districts15_Abidjan.pdf'),  width = 8, height =5)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
