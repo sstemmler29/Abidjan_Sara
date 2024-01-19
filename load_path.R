@@ -29,6 +29,7 @@ read_install_pacakges <- function(packages = list_of_packages
 read_install_pacakges()
 
 Abi_shapefile <- readRDS(file.path(program_dat, "shapefilesCIV.rds"))
+routine_dat <- readRDS(file.path(program_dat, "ts_retro_civ.rds"))
 
 
 
