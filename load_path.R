@@ -16,7 +16,7 @@ list_of_packages <- c("RColorBrewer", "readr", "haven", "data.table",
                       "ggplot2", "labelled", "tidyverse", "janitor",
                       "readxl", "mapsf", "survey","srvyr",
                       "broom", "ggthemes", "ggrepel", "sjlabelled",
-                      "ggplot2", "dplyr", "ggpubr", "sf")
+                      "ggplot2", "dplyr", "ggpubr", "sf", "viridis", "patchwork")
 
 
 read_install_pacakges <- function(packages = list_of_packages
@@ -30,7 +30,7 @@ read_install_pacakges()
 
 Abi_shapefile <- readRDS(file.path(program_dat, "shapefilesCIV.rds"))
 routine_dat <- readRDS(file.path(program_dat, "ts_retro_civ.rds"))
-
+campign_dat <- read.csv(file.path(program_dat, "microplan_abidjan_brief.csv"))
 
 
 map_theme <- function(){
