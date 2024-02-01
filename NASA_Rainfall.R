@@ -1,5 +1,5 @@
-#source("~/Abidjan/load_path.R", echo=FALSE)
-source("C:/Users/hp/Abidjan/load_path.R", echo=FALSE) #leave commented#
+source("~/Abidjan/load_path.R", echo=FALSE)
+#source("C:/Users/hp/Abidjan/load_path.R", echo=FALSE) #leave commented#
 
 Earthdata <- file.path(NASAdata, "EarthData")
 EVIkm <- file.path(Earthdata, "MODIS-TERRA_VegetationIndex_EVI_1km_Monthly_2013-23")
@@ -46,7 +46,6 @@ rainfall_plottingdata10 <- df_abidjan1 %>%
   sf::st_as_sf() %>%
   mutate(class = cut(meanrainfall, c(0, 0.05, 0.1, 0.16, 0.2,
                                      0.25, 0.3, 0.4), include.lowest = T ))
-
 ggplot(data = df_abidjan1) +
   geom_sf(color = "black", fill = "white") +
   geom_sf(data = rainfall_plottingdata10, aes(geometry = geometry, fill = meanrainfall)) +
@@ -54,13 +53,6 @@ ggplot(data = df_abidjan1) +
   labs(subtitle = '', fill = "", x = NULL, y = NULL) +
   map_theme() 
 
-
-##############
-#Building counts
-#################
-building_data <- file.path(NASAdata, "OB_Abidjan_WGS84_grid_with_building_counts")
-building_shp <- file.path(building_data, "OB_Abidjan_grid_with_building_counts.shp")
-view(building_shp)
 
 
 
