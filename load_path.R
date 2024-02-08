@@ -10,13 +10,15 @@ AbidjanDir <-  file.path(DataDir, "abidjan")
 program_dat <- file.path(AbidjanDir, "program_data")
 ProjectDir <- file.path(DriveDir, "projects", "urban_microstratification", "Abidjan")
 plots <- file.path(ProjectDir, "plots")
+NASAdata <- file.path(AbidjanDir, "Autonome D_Abidjan")
 
 
 list_of_packages <- c("RColorBrewer", "readr", "haven", "data.table",
                       "ggplot2", "labelled", "tidyverse", "janitor",
                       "readxl", "mapsf", "survey","srvyr",
                       "broom", "ggthemes", "ggrepel", "sjlabelled",
-                      "ggplot2", "dplyr", "ggpubr", "sf", "viridis", "patchwork")
+                      "ggplot2", "dplyr", "ggpubr", "sf", "viridis", "patchwork", 
+                      "raster", "wordcloud", "ggwordcloud")
 
 
 read_install_pacakges <- function(packages = list_of_packages
