@@ -1,5 +1,5 @@
-#source("~/Abidjan/load_path.R", echo=FALSE)
-source("C:/Users/hp/Abidjan/load_path.R", echo=FALSE) #leave commented#
+source("~/Abidjan/load_path.R", echo=FALSE)
+#source("C:/Users/hp/Abidjan/load_path.R", echo=FALSE) #leave commented#
 
 ###visualizing boundaries
 Region_bounds <-  file.path(AbidjanDir, "Region boundaries")
