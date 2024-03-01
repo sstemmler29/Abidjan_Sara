@@ -1,7 +1,12 @@
-source("load_path.R", echo=FALSE)
+#~/Desktop/Abidjan_Files
+
+
+
+#source("load_path.R", echo=FALSE)
 
 library(readxl)
 library(hrbrthemes)
+library(ggrepel)
 
 ymin = 5.220694
 ymax  = 5.636327
@@ -11,8 +16,9 @@ xmax  = -3.721849
 
 #usd_rate <- #need to exract it from online for the conversion 
 
+Abidjan_Sara <- "~/Urban Malaria Project/Abidjan_Sara"
 
-real_estate <- read_excel("C:/Users/lml6626/Urban Malaria Proj Dropbox/urban_malaria/data/abidjan/real_estate_data/All_data_realestate.xlsx") %>% 
+real_estate <- read_excel("~/Urban Malaria Project/Abidjan_Sara/All_data_realestate.xlsx") %>% 
   drop_na(lat,long) %>% 
   filter(lat > ymin & lat < ymax) %>% 
   filter(long > xmin & long < xmax) 
@@ -27,17 +33,13 @@ names(real_estate) <- new_names
 palettes <- list(rev(RColorBrewer::brewer.pal(11, "RdYlBu")))[[1]][10:1]
 
 
-# slums data
-pin_icon <- png::readPNG("C:/Users/lml6626/Urban Malaria Proj Dropbox/urban_malaria/data/abidjan/real_estate_data/pin_icon.png")
-raster_pin_icon <- rasterGrob(pin_icon, interpolate = TRUE)
+Abi_shapefile <- readRDS(file.path(Abidjan_Sara, "shapefilesCIV.rds"))
 
+slum_data <- read.csv(file.path(Abidjan_Sara, "Abidjan Slums_Sara Edits.csv"))
+slum_data <- slum_data %>% filter(!is.na(Longitude), !is.na(Latitude) ) 
+slum_sf <- sf::st_as_sf(slum_data, coords = c("Longitude", "Latitude"), crs = 4326)
 
-
-slum_data <- read.csv(file.path(AbidjanDir, "Abidjan slums.csv"))%>% 
-  drop_na(Latitude ,Longitude)
-
-slum_sf <-  st_as_sf(slum_data, coords = c("Longitude", "Latitude"), crs = 4326)
-
+names(slum_data)
 
 real_estate_clean <- real_estate %>% 
   mutate(price_square_meter = price / (100000 * as.numeric(area_square_meters)),
@@ -117,7 +119,7 @@ ggplot() +
   geom_sf(data = average_data, aes(geometry = geometry, color = mean_classes, fill = mean_classes), alpha = 0.8) +
   geom_point(data = real_estate_clean, aes(x = long, y = lat, fill = classes, color = classes), alpha = 0.5, size = 3) +
   geom_sf(data = slum_sf, aes(geometry = geometry), fill = "red", size = 4, shape = 25) +
-  geom_sf_text(data = slum_sf, aes(geometry = geometry, label = Slum.Name)) +
+  #geom_sf_text(data = slum_sf, aes(geometry = geometry, label = Slum.Name)) +
   labs(x = "", y = "", color = "", fill = "") +
   scale_fill_manual(values = palettes,
                     limits = c("[0.0201, 3.8]", "(3.8, 5.0]", "(5.0, 5.8]",
